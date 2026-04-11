@@ -5,58 +5,73 @@ public class Program
 {
 	public static async Task Main()
 	{
-		Console.WriteLine("Hello World");
-	    // no new-ing it up, CookieJar cookiejar = new CookieJar();
+		
 
+        //Call a static method in CookieJar to set the initial cookie count (e.g., 10 cookies).
+        //ClassName.Method();
+        Console.WriteLine($"{CookieJar.CookieJarStartAmount()} cookies are in the jar ");
 
+        
+        //Create several Kid objects and start each kid as an async task.
+        //Each kid should continuously try to grab cookies until none are left.
+        //Once the jar is empty, print out which kid stole the most cookies.
+        
     }
 }
 
 public static class CookieJar
 {   // doesnt need an instance constructor like usual cause its static
-    static int CookiesAmount= 30;
+
+    //finished writing this class
+    static int cookienumber = 30;
+    public static int CookieJarStartAmount()
+    {
+        return cookienumber;
+    }
     //int CookieChecker; might be helpful for refills later
 
-}
-    
 
-public class SNIPPETS {
-    public void CookiesNeverZero() 
-    {
-        if (CookiesAmount <= 1)
+    public static async Task SnatchCookie(/*string cookiekidName*/)
+    {   
+        int timeDelayInt = 2500;
+        Random random = new Random();
+        timeDelayInt = random.Next(1,11) >= 5 ? ( 1000 * random.Next(1,6)) : 2500;
+        
+        await Task.Delay(timeDelayInt);
+        if (cookienumber == 0)
         {
-            CookiesAmount = 0;
-            //probably throw the next line under this into an interface,
-            // or just call from here over to there. 
-            Console.WriteLine($"{GetKidName()} walks away sad");
-        }
-
-        if (CookiesAmount <= 10)
-        {
-            CookiesAmount += 25;
-        }
-    }
-
-    private static object GetKidName()
-    {
-        KidName = GetKidCaller();
-        return KidName; //need to make polymorphic constructor for kids
-
-    }
-
-    public static async Task SnatchCookie(CookieJar.CookiesAmount)
-    {
-        await Task.Delay(2500);
-        if (CookiesAmount == 0)
-        {
-            Console.WriteLine($"Kid A took a cookie. Cookies left: {CookiesAmount}";);
+            Console.WriteLine($"Kid tried to take a cookie, but the jar is empty!");
+            Console.WriteLine($"kid walks away sad and hopes for a refill");
         }
 
         else
         {
-             "Kid B tried to take a cookie, but the jar is empty!"
+            cookienumber--;
+            Console.WriteLine($"Kid took a cookie. Cookies left: {cookienumber}");
+
         }
+    }
+
+}
+
+public class Kid()
+{
+    public string Name {get; set;} = "KidA";
+    
+   /*  public Kid()
+    {
+        this.Name = 
+        
+    } */
+    public async Task CookieKid(string cookiekidname)
+    {
+        this.Name = cookiekidname;
+        await CookieJar.SnatchCookie();
     }
 
 
 }
+
+
+//public available to other classes
+//static makes the method part of the whole class instead of 1 instance
