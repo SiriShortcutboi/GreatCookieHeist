@@ -11,7 +11,8 @@ public class Program
         //ClassName.Method();
         Console.WriteLine($"{CookieJar.CookieJarStartAmount()} cookies are in the jar ");
 
-        
+        Kid kidA = new Kid("kidA");
+
         //Create several Kid objects and start each kid as an async task.
         //Each kid should continuously try to grab cookies until none are left.
         //Once the jar is empty, print out which kid stole the most cookies.
@@ -20,18 +21,15 @@ public class Program
 }
 
 public static class CookieJar
-{   // doesnt need an instance constructor like usual cause its static
-
-    //finished writing this class
+{   //finished writing this class
     static int cookienumber = 30;
     public static int CookieJarStartAmount()
     {
         return cookienumber;
     }
-    //int CookieChecker; might be helpful for refills later
 
 
-    public static async Task SnatchCookie(/*string cookiekidName*/)
+    public static async Task SnatchCookie(/* string cookiekidName */)
     {   
         int timeDelayInt = 2500;
         Random random = new Random();
@@ -40,32 +38,31 @@ public static class CookieJar
         await Task.Delay(timeDelayInt);
         if (cookienumber == 0)
         {
-            Console.WriteLine($"Kid tried to take a cookie, but the jar is empty!");
-            Console.WriteLine($"kid walks away sad and hopes for a refill");
+            Console.WriteLine($"{cookiekidName} tried to take a cookie, but the jar is empty!");
+            Console.WriteLine($"{cookiekidName} walks away sad and hopes for a refill");
         }
 
         else
         {
             cookienumber--;
-            Console.WriteLine($"Kid took a cookie. Cookies left: {cookienumber}");
+            Console.WriteLine($"{cookiekidName} took a cookie. Cookies left: {cookienumber}");
 
         }
     }
 
 }
 
-public class Kid()
+public class Kid//note to self, CLASSES ARE NOT MAIN AND THEY DO NOT NEED PARENTHESES RIGHT AFTER THEM!!!
 {
     public string Name {get; set;} = "KidA";
     
-   /*  public Kid()
+    public Kid(string cookiekidname)
     {
-        this.Name = 
+        this.Name = cookiekidname; 
         
-    } */
-    public async Task CookieKid(string cookiekidname)
+    }
+    public async Task CookieKid()
     {
-        this.Name = cookiekidname;
         await CookieJar.SnatchCookie();
     }
 
